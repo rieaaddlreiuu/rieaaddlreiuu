@@ -7,7 +7,6 @@
 // @match https://twitter.com/*
 // @match https://x.com/*
 // ==/UserScript==
-
 class quizObject {
     statement;
     choices;
