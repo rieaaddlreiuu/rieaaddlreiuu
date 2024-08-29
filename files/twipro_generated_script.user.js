@@ -209,7 +209,7 @@ function TwiproData() {
     let CA_count = 1;
     const quiz_list = TwiproData();
     function f(x){
-        return 5*Math.log(1-x);
+        return -5*Math.log(1-x);
     }
     cyclicExecute(1000, () => {
         let timeline_rect = document.querySelector('[role="main"]').getBoundingClientRect();
@@ -265,4 +265,4 @@ function TwiproData() {
     })
 })();
 
-//くそがくそuhadvcuwvue
+//bus
