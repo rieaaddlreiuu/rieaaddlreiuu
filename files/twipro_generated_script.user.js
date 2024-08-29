@@ -207,11 +207,6 @@ function TwiproData() {
     let set_quiz_time = 20;
     let WA_count = 1;
     let CA_count = 1;
-    document.body.insertAdjacentHTML("afterend",`<div id="time_display" style="
-        position:absolute;
-        top: `+(window.outerHeight - 30) +`px;
-        left: `+(window.outerWidth - 30) +`px;
-    "></div>`);
     const quiz_list = TwiproData();
     cyclicExecute(1000, () => {
         let timeline_rect = document.querySelector('[role="main"]').getBoundingClientRect();
@@ -231,7 +226,7 @@ function TwiproData() {
             quiz_element.getElementsByClassName("correct_answer")[0].addEventListener('click', function () {
                 quiz_element.style = "display:none;";
                 CA_count++;
-                set_quiz_time += (60*CA_count)/(WA_count+CA_count);
+                set_quiz_time += (30 * CA_count) / (WA_count + CA_count);
             });
             let wrong_item_elem = quiz_element.getElementsByClassName("wrong_answer");
             Array.prototype.forEach.call(wrong_item_elem, function (item) {
@@ -242,9 +237,17 @@ function TwiproData() {
             quiz_element.getElementsByClassName("show_answer")[0].addEventListener('click', function () {
                 this.children[1].style = "";
             });
-            set_quiz_time = 1;
+            set_quiz_time = (10 * CA_count) / (WA_count + CA_count);
         }
-        document.getElementById("time_display").innerHTML = set_quiz_time;
+        if (document.getElementById("time_display") != null) {
+            document.getElementById("time_display").innerHTML = set_quiz_time;
+        } else {
+            document.getElementById("react-root").children[0].children[0].children[0].insertAdjacentHTML("afterend", `<div id="time_display" style="
+                position:fixed;
+                bottom: 90px;
+                right: 30px;
+            "></div>`);
+        }
         console.log(set_quiz_time);
         set_quiz_time--;
     })
