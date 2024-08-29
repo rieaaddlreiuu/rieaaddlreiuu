@@ -25,7 +25,7 @@ class quizObject {
                 <a>` + this.choices[random_sequence[i]] + `</a>
                 </span>`;
             } else {
-                choices_html = choices_html + `<span class="button019">
+                choices_html = choices_html + `<span class="button019 wrong_answer">
                 <a>` + this.choices[random_sequence[i]] + `</a>
                 </span>`;
             }
@@ -204,10 +204,12 @@ function TwiproData() {
         }
     })
     let quiz_position = 3000;
+    let set_quiz_time = 20;
     const quiz_list = TwiproData();
-    cyclicExecute(100, () => {
+    cyclicExecute(1000, () => {
         let timeline_rect = document.querySelector('[role="main"]').getBoundingClientRect();
-        if (quiz_position < timeline_rect.height) {
+        if (set_quiz_time == 0) {
+            quiz_position = window.scrollY + 100;
             let left_margin = document.querySelector('[role="banner"]').getBoundingClientRect().width;
             let quiz_id = "TwiProQuiz-" + quiz_position;
             let test_html = `<div style="position:absolute; top: ` + quiz_position + `px; 
@@ -221,13 +223,15 @@ function TwiproData() {
             let quiz_element = document.getElementById(quiz_id);
             quiz_element.getElementsByClassName("correct_answer")[0].addEventListener('click', function () {
                 quiz_element.style = "display:none;";
+                set_quiz_time += 10;
             });
             quiz_element.getElementsByClassName("show_answer")[0].addEventListener('click', function () {
                 this.children[1].style = "";
             });
-
-            quiz_position += 3000;
+            set_quiz_time = 1;
         }
+        console.log(set_quiz_time);
+        set_quiz_time--;
     })
 })();
 
