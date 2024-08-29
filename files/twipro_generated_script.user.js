@@ -207,10 +207,15 @@ function TwiproData() {
     let set_quiz_time = 20;
     let WA_count = 1;
     let CA_count = 1;
+    document.insertAdjacentHTML("afterend",`<div id="time_display" style="
+        position:absolute;
+        top: `+(window.outerHeight - 30) +`px;
+        left: `+(window.outerWidth - 30) +`px;
+    "></div>`);
     const quiz_list = TwiproData();
     cyclicExecute(1000, () => {
         let timeline_rect = document.querySelector('[role="main"]').getBoundingClientRect();
-        if (set_quiz_time == 0) {
+        if (set_quiz_time <= 0) {
             quiz_position = window.scrollY + window.outerHeight + 100;
             let left_margin = document.querySelector('[role="banner"]').getBoundingClientRect().width;
             let quiz_id = "TwiProQuiz-" + quiz_position;
@@ -238,6 +243,7 @@ function TwiproData() {
                 this.children[1].style = "";
             });
             set_quiz_time = 1;
+            document.getElementById("time_display").innerHTML = set_quiz_time;
         }
         console.log(set_quiz_time);
         set_quiz_time--;
