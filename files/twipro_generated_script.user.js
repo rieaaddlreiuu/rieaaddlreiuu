@@ -208,6 +208,9 @@ function TwiproData() {
     let WA_count = 1;
     let CA_count = 1;
     const quiz_list = TwiproData();
+    function f(x){
+        return 5*Math.log(1-x);
+    }
     cyclicExecute(1000, () => {
         let timeline_rect = document.querySelector('[role="main"]').getBoundingClientRect();
         if (set_quiz_time <= 0) {
@@ -226,22 +229,28 @@ function TwiproData() {
             quiz_element.getElementsByClassName("correct_answer")[0].addEventListener('click', function () {
                 quiz_element.style = "display:none;";
                 CA_count++;
+                if(CA_count + WA_count >= 20){
+                    WA_count--;
+                }
             });
             let wrong_item_elem = quiz_element.getElementsByClassName("wrong_answer");
             Array.prototype.forEach.call(wrong_item_elem, function (item) {
                 item.addEventListener('click', function () {
                     WA_count++;
+                    if(CA_count + WA_count >= 20){
+                        CA_count--;
+                    }
                 });
             });
             quiz_element.getElementsByClassName("show_answer")[0].addEventListener('click', function () {
                 this.children[1].style = "";
             });
-            set_quiz_time += (20 * CA_count) / (WA_count + CA_count);
+            set_quiz_time += 20 * f((CA_count) / (WA_count + CA_count));
         }
         if (document.getElementById("time_display") != null) {
             document.getElementById("time_display").innerHTML = `
             出題までの時間 : `+set_quiz_time+`<br>
-            正答率 : `+(100*CA_count) / (WA_count + CA_count)+`(%)
+            正答率 : `+ (CA_count) / (WA_count + CA_count)+`(%)
             `;
         } else {
             document.getElementById("react-root").children[0].children[0].children[0].insertAdjacentHTML("afterend", `<div id="time_display" style="
