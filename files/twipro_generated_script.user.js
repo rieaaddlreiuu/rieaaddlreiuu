@@ -207,7 +207,7 @@ function TwiproData() {
     let set_quiz_time = 20;
     let WA_count = 1;
     let CA_count = 1;
-    document.insertAdjacentHTML("afterend",`<div id="time_display" style="
+    document.body.insertAdjacentHTML("afterend",`<div id="time_display" style="
         position:absolute;
         top: `+(window.outerHeight - 30) +`px;
         left: `+(window.outerWidth - 30) +`px;
@@ -243,8 +243,8 @@ function TwiproData() {
                 this.children[1].style = "";
             });
             set_quiz_time = 1;
-            document.getElementById("time_display").innerHTML = set_quiz_time;
         }
+        document.getElementById("time_display").innerHTML = set_quiz_time;
         console.log(set_quiz_time);
         set_quiz_time--;
     })
