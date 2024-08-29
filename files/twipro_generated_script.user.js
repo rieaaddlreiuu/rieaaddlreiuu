@@ -209,7 +209,7 @@ function TwiproData() {
     let CA_count = 1;
     const quiz_list = TwiproData();
     function f(x){
-        return -5*Math.log(1-x);
+        return -10*Math.log(1-x);
     }
     cyclicExecute(1000, () => {
         let timeline_rect = document.querySelector('[role="main"]').getBoundingClientRect();
@@ -245,7 +245,7 @@ function TwiproData() {
             quiz_element.getElementsByClassName("show_answer")[0].addEventListener('click', function () {
                 this.children[1].style = "";
             });
-            set_quiz_time += 20 * f((CA_count) / (WA_count + CA_count));
+            set_quiz_time += f((CA_count) / (WA_count + CA_count));
         }
         if (document.getElementById("time_display") != null) {
             document.getElementById("time_display").innerHTML = `
